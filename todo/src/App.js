@@ -8,6 +8,9 @@ function App(props) {
   const handleChanges = e => {
     setItem(e.target.value);
   };
+  const toggleCompleted = id => {
+    dispatch({ type: "TOGGLE_COMPLETED", payload: id})
+  }
 
   console.log(state);
   
@@ -15,8 +18,8 @@ function App(props) {
   return (
     <div>
       <div className="todo-list">
-        {state.map(item => (
-          <Todo key={item.id} {...item} />
+        {state.todos.map(item => (
+          <Todo toggleCompleted={toggleCompleted} key={item.id} {...item} />
         ))}
       </div>
       <div>
@@ -29,6 +32,9 @@ function App(props) {
         />
         <button onClick={() => dispatch({ type: "ADD_ITEM", payload: item })}>
           Add Item
+        </button>
+        <button onClick={() => dispatch({ type: "COMPLETED_ITEM"})}>
+          Remove Completed Items
         </button>
       </div>
     </div>
